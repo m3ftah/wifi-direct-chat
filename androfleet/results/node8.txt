@@ -1,0 +1,25 @@
+Feature: Chat Room feature
+
+  Scenario: 1- Simple chat message - Receiving                                       # features/node8.feature:3
+    Given I activate WiFi Direct                                                     # features/step_definitions/calabash_steps.rb:26
+    Then I wait up to 60 seconds for "Available" to appear                           # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I wait for 5 seconds                                                        # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:10
+    Then I press text "Discover"                                                     # features/step_definitions/calabash_steps.rb:32
+    Then I should see "finding peers"                                                # calabash-android-0.9.0/lib/calabash-android/steps/assert_steps.rb:9
+    Then I wait up to 60 seconds for "N192168491" to appear                          # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I touch the "N192168491" text                                               # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:25
+    Then I wait for the "Connect" button to appear                                   # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:38
+    Then I press the "Connect" button                                                # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I should see "Connecting to"                                                # calabash-android-0.9.0/lib/calabash-android/steps/assert_steps.rb:9
+      #Then I wait up to 60 seconds for "Start Chatting" to appear
+      #Then I touch the "Start Chatting" text
+    Then I take a screenshot                                                         # calabash-android-0.9.0/lib/calabash-android/steps/screenshot_steps.rb:9
+    Then I wait up to 120 seconds for "Hi James" to appear                           # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I enter text "Hi, I am Linda, How are you?" into field with id "edit_input" # calabash-android-0.9.0/lib/calabash-android/steps/enter_text_steps.rb:13
+    Then I press the "Send" button                                                   # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I wait up to 120 seconds for "Hi Sarra" to appear                           # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I take a screenshot                                                         # calabash-android-0.9.0/lib/calabash-android/steps/screenshot_steps.rb:9
+
+1 scenario (1 passed)
+16 steps (16 passed)
+2m41.163s

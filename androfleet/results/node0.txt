@@ -1,0 +1,46 @@
+Feature: Chat Room feature
+
+  Scenario: 1- Simple chat message - Sending                                    # features/node0.feature:3
+    Given I activate WiFi Direct                                                # features/step_definitions/calabash_steps.rb:26
+    Then I wait up to 60 seconds for "Available" to appear                      # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I don't see the text "Disconnect"                                      # calabash-android-0.9.0/lib/calabash-android/steps/assert_steps.rb:23
+    When I take an image                                                        # features/step_definitions/calabash_steps.rb:19
+    Then I wait up to 120 seconds for "Start Chatting" to appear                # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I touch the "Start Chatting" text                                      # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:25
+    Then I take a screenshot                                                    # calabash-android-0.9.0/lib/calabash-android/steps/screenshot_steps.rb:9
+    Then I wait for 30 seconds                                                  # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:10
+    Then I enter text "Hi" into field with id "edit_input"                      # calabash-android-0.9.0/lib/calabash-android/steps/enter_text_steps.rb:13
+    Then I press the "Send" button                                              # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I wait up to 30 seconds for "Hi" to appear                             # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I wait up to 60 seconds for "Hi, I am Smith, How are you?" to appear   # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I enter text "Hi Smith" into field with id "edit_input"                # calabash-android-0.9.0/lib/calabash-android/steps/enter_text_steps.rb:13
+    Then I press the "Send" button                                              # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I wait up to 60 seconds for "Hi, I am Bill, How are you?" to appear    # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I enter text "Hi Bill" into field with id "edit_input"                 # calabash-android-0.9.0/lib/calabash-android/steps/enter_text_steps.rb:13
+    Then I press the "Send" button                                              # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I wait up to 60 seconds for "Hi, I am John, How are you?" to appear    # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I enter text "Hi John" into field with id "edit_input"                 # calabash-android-0.9.0/lib/calabash-android/steps/enter_text_steps.rb:13
+    Then I press the "Send" button                                              # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I wait up to 60 seconds for "Hi, I am Harry, How are you?" to appear   # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I enter text "Hi Harry" into field with id "edit_input"                # calabash-android-0.9.0/lib/calabash-android/steps/enter_text_steps.rb:13
+    Then I press the "Send" button                                              # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I wait up to 60 seconds for "Hi, I am Richard, How are you?" to appear # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I enter text "Hi Richard" into field with id "edit_input"              # calabash-android-0.9.0/lib/calabash-android/steps/enter_text_steps.rb:13
+    Then I press the "Send" button                                              # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I wait up to 60 seconds for "Hi, I am Travis, How are you?" to appear  # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I enter text "Hi Travis" into field with id "edit_input"               # calabash-android-0.9.0/lib/calabash-android/steps/enter_text_steps.rb:13
+    Then I press the "Send" button                                              # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I wait up to 60 seconds for "Hi, I am James, How are you?" to appear   # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I enter text "Hi James" into field with id "edit_input"                # calabash-android-0.9.0/lib/calabash-android/steps/enter_text_steps.rb:13
+    Then I press the "Send" button                                              # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I wait up to 60 seconds for "Hi, I am Linda, How are you?" to appear   # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I enter text "Hi Linda" into field with id "edit_input"                # calabash-android-0.9.0/lib/calabash-android/steps/enter_text_steps.rb:13
+    Then I press the "Send" button                                              # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I wait up to 60 seconds for "Hi, I am Sarra, How are you?" to appear   # calabash-android-0.9.0/lib/calabash-android/steps/progress_steps.rb:26
+    Then I enter text "Hi Sarra" into field with id "edit_input"                # calabash-android-0.9.0/lib/calabash-android/steps/enter_text_steps.rb:13
+    Then I press the "Send" button                                              # calabash-android-0.9.0/lib/calabash-android/steps/press_button_steps.rb:1
+    Then I take a screenshot                                                    # calabash-android-0.9.0/lib/calabash-android/steps/screenshot_steps.rb:9
+
+1 scenario (1 passed)
+39 steps (39 passed)
+2m41.863s

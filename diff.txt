@@ -1,0 +1,260 @@
+diff -r appMock/src/main/AndroidManifest.xml app/src/main/AndroidManifest.xml
+38,41c38,41
+<                 <action android:name="mock.STATE_CHANGED" />
+<                 <action android:name="mock.PEERS_CHANGED" />
+<                 <action android:name="mock.THIS_DEVICE_CHANGED" />
+<                 <action android:name="mock.CONNECTION_STATE_CHANGE" />
+---
+>                 <action android:name="android.net.wifi.p2p.STATE_CHANGED" />
+>                 <action android:name="android.net.wifi.p2p.PEERS_CHANGED" />
+>                 <action android:name="android.net.wifi.p2p.THIS_DEVICE_CHANGED" />
+>                 <action android:name="android.net.wifi.p2p.CONNECTION_STATE_CHANGE" />
+diff -r appMock/src/main/java/com/colorcloud/wifichat/ConnectionManager.java app/src/main/java/com/colorcloud/wifichat/ConnectionManager.java
+119,120c119
+< 			SocketChannel sChannel = connectTo(host, 1080);
+< 			Log.d(TAG,"connectTo: " + host + ":" + 1080);
+---
+> 			SocketChannel sChannel = connectTo(host, 1080);  
+246,247c245
+< 		String ipaddr = schannel.socket().getRemoteSocketAddress().toString();
+< 		//String ipaddr = schannel.socket().getInetAddress().getHostAddress();
+---
+> 		String ipaddr = schannel.socket().getInetAddress().getHostAddress();
+335c333
+< 		//Log.d(TAG, "sendDataToServer: " + mClientAddr + " -> " + mClientSocketChannel.socket().getInetAddress().getHostAddress() + " : " +  jsonString);
+---
+> 		Log.d(TAG, "sendDataToServer: " + mClientAddr + " -> " + mClientSocketChannel.socket().getInetAddress().getHostAddress() + " : " +  jsonString);
+diff -r appMock/src/main/java/com/colorcloud/wifichat/ConnectionService.java app/src/main/java/com/colorcloud/wifichat/ConnectionService.java
+13,20c13,20
+< import mock.net.NetworkInfo;
+< import mock.net.wifi.p2p.WifiP2pDevice;
+< import mock.net.wifi.p2p.WifiP2pDeviceList;
+< import mock.net.wifi.p2p.WifiP2pInfo;
+< import mock.net.wifi.p2p.WifiP2pManager;
+< import mock.net.wifi.p2p.WifiP2pManager.ChannelListener;
+< import mock.net.wifi.p2p.WifiP2pManager.ConnectionInfoListener;
+< import mock.net.wifi.p2p.WifiP2pManager.PeerListListener;
+---
+> import android.net.NetworkInfo;
+> import android.net.wifi.p2p.WifiP2pDevice;
+> import android.net.wifi.p2p.WifiP2pDeviceList;
+> import android.net.wifi.p2p.WifiP2pInfo;
+> import android.net.wifi.p2p.WifiP2pManager;
+> import android.net.wifi.p2p.WifiP2pManager.ChannelListener;
+> import android.net.wifi.p2p.WifiP2pManager.ConnectionInfoListener;
+> import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
+60c60
+<         mApp.mP2pMan = new WifiP2pManager();
+---
+>         mApp.mP2pMan = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
+108,109c108
+< 			int state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1);
+< 			Log.d("debug","received intent for WIFI_P2P_STATE_CHANGED_ACTION: " + state);
+---
+>               int state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1);
+205c204
+<     		if(mApp.mP2pInfo.isGroupOwner ){
+---
+>     		if( mApp.mP2pInfo.groupFormed && mApp.mP2pInfo.isGroupOwner ){
+208c207
+<     		}else if(connectedPeer != null ){
+---
+>     		}else if( mApp.mP2pInfo.groupFormed && connectedPeer != null ){
+210c209
+< 				PTPLog.d(TAG, "onConnectionInfoAvailable: device is client, connect to group owner: startSocketClient ");
+---
+>     			PTPLog.d(TAG, "onConnectionInfoAvailable: device is client, connect to group owner: startSocketClient ");
+227,228c226
+< 
+<         if (info.isGroupOwner ) {
+---
+>         if (info.groupFormed && info.isGroupOwner ) {
+232,233c230,231
+<             mApp.startSocketServer();
+<         } else {
+---
+>         	mApp.startSocketServer();
+>         } else if (info.groupFormed) {
+diff -r appMock/src/main/java/com/colorcloud/wifichat/DeviceDetailFragment.java app/src/main/java/com/colorcloud/wifichat/DeviceDetailFragment.java
+35,37c35,37
+< import mock.net.wifi.p2p.WifiP2pConfig;
+< import mock.net.wifi.p2p.WifiP2pDevice;
+< import mock.net.wifi.p2p.WifiP2pInfo;
+---
+> import android.net.wifi.p2p.WifiP2pConfig;
+> import android.net.wifi.p2p.WifiP2pDevice;
+> import android.net.wifi.p2p.WifiP2pInfo;
+228a229,298
+>     public static class FileServerAsyncTask extends AsyncTask<Void, Void, String> {
+> 
+>         private Context context;
+>         private TextView statusText;
+> 
+>         /**
+>          * @param context
+>          * @param statusText
+>          */
+>         public FileServerAsyncTask(Context context, View statusText) {
+>             this.context = context;
+>             this.statusText = (TextView) statusText;
+>         }
+> 
+>         @Override
+>         protected String doInBackground(Void... params) {
+>             try {
+>                 ServerSocket serverSocket = new ServerSocket(8988);
+>                 Log.d(WiFiDirectActivity.TAG, "Server: Socket opened");
+>                 
+>                 Socket client = serverSocket.accept();
+>                 Log.d(WiFiDirectActivity.TAG, "Server: connection done");
+>                 
+>                 
+>                 final File f = new File(Environment.getExternalStorageDirectory() + "/"
+>                         + context.getPackageName() + "/wifip2pshared-" + System.currentTimeMillis()
+>                         + ".jpg");
+> 
+>                 File dirs = new File(f.getParent());
+>                 if (!dirs.exists())
+>                     dirs.mkdirs();
+>                 f.createNewFile();
+> 
+>                 Log.d(WiFiDirectActivity.TAG, "server: copying files " + f.toString());
+>                 InputStream inputstream = client.getInputStream();
+>                 copyFile(inputstream, new FileOutputStream(f));
+>                 serverSocket.close();
+>                 return f.getAbsolutePath();
+>             } catch (IOException e) {
+>                 Log.e(WiFiDirectActivity.TAG, e.getMessage());
+>                 return null;
+>             }
+>         }
+> 
+>         /*
+>          * (non-Javadoc)
+>          * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+>          */
+>         @Override
+>         protected void onPostExecute(String result) {
+>             if (result != null) {
+>                 statusText.setText("File copied - " + result);
+>                 Intent intent = new Intent();
+>                 intent.setAction(android.content.Intent.ACTION_VIEW);
+>                 intent.setDataAndType(Uri.parse("file://" + result), "image/*");
+>                 context.startActivity(intent);
+>             }
+> 
+>         }
+> 
+>         /*
+>          * (non-Javadoc)
+>          * @see android.os.AsyncTask#onPreExecute()
+>          */
+>         @Override
+>         protected void onPreExecute() {
+>             statusText.setText("Opening a server socket");
+>         }
+> 
+>     }
+diff -r appMock/src/main/java/com/colorcloud/wifichat/DeviceListFragment.java app/src/main/java/com/colorcloud/wifichat/DeviceListFragment.java
+26,28c26,28
+< import mock.net.wifi.p2p.WifiP2pConfig;
+< import mock.net.wifi.p2p.WifiP2pDevice;
+< import mock.net.wifi.p2p.WifiP2pDeviceList;
+---
+> import android.net.wifi.p2p.WifiP2pConfig;
+> import android.net.wifi.p2p.WifiP2pDevice;
+> import android.net.wifi.p2p.WifiP2pDeviceList;
+174c174
+<     	        //Toast.makeText(getActivity(), "p2p connection broken...please try again...", Toast.LENGTH_LONG).show();
+---
+>     	        Toast.makeText(getActivity(), "p2p connection broken...please try again...", Toast.LENGTH_LONG).show();
+diff -r appMock/src/main/java/com/colorcloud/wifichat/SelectorAsyncTask.java app/src/main/java/com/colorcloud/wifichat/SelectorAsyncTask.java
+135c135
+< 		ByteBuffer buf = ByteBuffer.allocate(1024*8);   // let's cap json string to 4k for now.
+---
+> 		ByteBuffer buf = ByteBuffer.allocate(1024*4);   // let's cap json string to 4k for now.
+147c147
+< 		    	//sChannel.close();
+---
+> 		    	// sChannel.close();
+diff -r appMock/src/main/java/com/colorcloud/wifichat/WiFiDirectActivity.java app/src/main/java/com/colorcloud/wifichat/WiFiDirectActivity.java
+25,30c25,30
+< import mock.net.wifi.p2p.WifiP2pConfig;
+< import mock.net.wifi.p2p.WifiP2pDevice;
+< import mock.net.wifi.p2p.WifiP2pDeviceList;
+< import mock.net.wifi.p2p.WifiP2pInfo;
+< import mock.net.wifi.p2p.WifiP2pManager;
+< import mock.net.wifi.p2p.WifiP2pManager.ActionListener;
+---
+> import android.net.wifi.p2p.WifiP2pConfig;
+> import android.net.wifi.p2p.WifiP2pDevice;
+> import android.net.wifi.p2p.WifiP2pDeviceList;
+> import android.net.wifi.p2p.WifiP2pInfo;
+> import android.net.wifi.p2p.WifiP2pManager;
+> import android.net.wifi.p2p.WifiP2pManager.ActionListener;
+diff -r appMock/src/main/java/com/colorcloud/wifichat/WiFiDirectApp.java app/src/main/java/com/colorcloud/wifichat/WiFiDirectApp.java
+13,16c13,16
+< import mock.net.wifi.p2p.WifiP2pDevice;
+< import mock.net.wifi.p2p.WifiP2pInfo;
+< import mock.net.wifi.p2p.WifiP2pManager;
+< import mock.net.wifi.p2p.WifiP2pManager.Channel;
+---
+> import android.net.wifi.p2p.WifiP2pDevice;
+> import android.net.wifi.p2p.WifiP2pInfo;
+> import android.net.wifi.p2p.WifiP2pManager;
+> import android.net.wifi.p2p.WifiP2pManager.Channel;
+diff -r appMock/src/main/java/com/colorcloud/wifichat/WiFiDirectBroadcastReceiver.java app/src/main/java/com/colorcloud/wifichat/WiFiDirectBroadcastReceiver.java
+22d21
+< import android.util.Log;
+42,43c41
+<         Log.d("BroadcastReceiver", "received: " + action);
+<         context.startService(serviceIntent);  // start the connection service
+---
+>     	context.startService(serviceIntent);  // start the connection service        
+diff -r appMock/src/main/res/layout/main.xml app/src/main/res/layout/main.xml
+13,19d12
+<             class="com.colorcloud.wifichat.DeviceDetailFragment"
+<             android:id="@+id/frag_detail"
+<             android:layout_width="match_parent"
+<             android:layout_height="wrap_content">
+<             <!-- Preview: layout=@layout/device_detail -->
+<         </fragment>
+<         <fragment
+26a20,26
+>         </fragment>
+>         <fragment
+>             class="com.colorcloud.wifichat.DeviceDetailFragment"
+>             android:id="@+id/frag_detail"
+>             android:layout_width="match_parent"
+>             android:layout_height="match_parent">
+>             <!-- Preview: layout=@layout/device_detail -->
+diff -r appMock/src/main/res/layout-land/main.xml app/src/main/res/layout-land/main.xml
+13,19d12
+<             class="com.colorcloud.wifichat.DeviceDetailFragment"
+<             android:id="@+id/frag_detail"
+<             android:layout_width="match_parent"
+<             android:layout_height="wrap_content">
+<             <!-- Preview: layout=@layout/device_detail -->
+<         </fragment>
+<         <fragment
+24a18,24
+>         </fragment>
+>         <fragment
+>             class="com.colorcloud.wifichat.DeviceDetailFragment"
+>             android:id="@+id/frag_detail"
+>             android:layout_width="match_parent"
+>             android:layout_height="match_parent">
+>             <!-- Preview: layout=@layout/device_detail -->
+diff -r appMock/src/main/res/layout-large/main.xml app/src/main/res/layout-large/main.xml
+7,11d6
+<         <fragment class="com.colorcloud.wifichat.DeviceDetailFragment"
+<             android:id="@+id/frag_detail" android:layout_width="match_parent"
+<             android:layout_height="wrap_content">
+<             <!-- Preview: layout=@layout/device_detail -->
+<         </fragment>
+15a11,15
+>         </fragment>
+>         <fragment class="com.colorcloud.wifichat.DeviceDetailFragment"
+>             android:id="@+id/frag_detail" android:layout_width="match_parent"
+>             android:layout_height="match_parent">
+>             <!-- Preview: layout=@layout/device_detail -->

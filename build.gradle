@@ -1,0 +1,28 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+apply plugin: 'com.inriaspirals.androfleetplugin'
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url uri('../../android-p2p-mockplugin/Androfleet_Plugin')
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.inriaspirals.gradle:androfleetplugin:1.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+androfleet {
+    nodes 10
+    androidVersion 23
+    androfleetPath = "./androfleet"
+}

@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/layout/main.xml",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/layout/main.xml"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/layout/chat_row_inmsg.xml",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/layout/chat_row_inmsg.xml"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/layout/msg_row.xml",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/layout/msg_row.xml"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/layout/chat.xml",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/layout/chat.xml"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/layout/chat_row_mymsg.xml",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/layout/chat_row_mymsg.xml"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/layout/chat_frag_bak.xml",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/layout/chat_frag_bak.xml"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/layout/chat_test.xml",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/layout/chat_test.xml"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/layout/row_devices.xml",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/layout/row_devices.xml"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/layout/device_detail.xml",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/layout/device_detail.xml"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/layout/device_list.xml",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/layout/device_list.xml"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/layout/chat_frag.xml",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/layout/chat_frag.xml"
+    }
+]

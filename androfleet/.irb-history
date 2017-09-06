@@ -1,0 +1,50 @@
+exit
+"ARG >> v"
+ARGV << "-v"
+reinstall_apps
+ADB_DEVICE_ARG >> "192.168.49.1:5555"
+ADB_DEVICE_ARG << "192.168.49.1:5555"
+ADB_DEVICE_ARG="192.168.49.1:5555"
+TEST_SERVER_PORT=2891
+ADB_DEVICE_ARG=192.168.49.1:5555
+ADB_DEVICE_ARG="192.168.49.1:5555"
+TEST_SERVER_PORT=2891
+reinstall_apps
+reinstall_apps ADB_DEVICE_ARG=192.168.49.1 TEST_SERVER_PORT=2891
+reinstall_apps ADB_DEVICE_ARG=192.168.49.1
+reinstall_apps ADB_DEVICE_ARG="192.168.49.1"
+ENV["ADB_DEVICE_ARG"]="192.168.49.1"
+ENV["TEST_SERVER_PORT"]="2891"
+reinstall_apps
+start_test_server_in_background
+query("button")
+query("")
+query("*")
+query("com.android.internal.view.menu.ActionMenuItemView")
+tap_when_element_exists("TextView contentDescription:'Discover'")
+tap_when_element_exists("ActionMenuItemView contentDescription:'Discover'")
+tap_when_element_exists("* contentDescription:'Discover'")
+query("*")
+exit
+ARGV << "-v"
+ENV["ADB_DEVICE_ARG"]="192.168.49.1"
+ENV["TEST_SERVER_PORT"]="2891"
+start_test_server_in_background
+query(*)
+query("*")
+tap_when_element_exists("* text:'Start Chatting'")
+exit
+ARGV << "-v"
+ENV["ADB_DEVICE_ARG"]="192.168.49.1"
+ENV["TEST_SERVER_PORT"]="2891"
+start_test_server_in_background
+query("*")
+enter_text("android.widget.EditText {id LIKE[c] 'edit_input'}", text)
+enter_text("android.widget.EditText {id LIKE[c] 'edit_input'}", "text")
+query("*")
+exit
+ENV["ADB_DEVICE_ARG"]="192.168.49.1"
+ENV["TEST_SERVER_PORT"]="2891"
+start_test_server_in_background
+query("*")
+exit

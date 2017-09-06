@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/drawable-ldpi/ic_action_discover.png",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/drawable-ldpi/ic_action_discover.png"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/drawable-ldpi/ic_action_on_off.png",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/drawable-ldpi/ic_action_on_off.png"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/drawable-ldpi/ic_launcher.png",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/drawable-ldpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/build/intermediates/res/merged/debug/drawable-ldpi/icon.png",
+        "source": "/home/lakhdar/ilab/examples/wifi-direct-chat-room/app/src/main/res/drawable-ldpi/icon.png"
+    }
+]
